@@ -1,13 +1,96 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'morhetz/gruvbox'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/syntastic'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+Plugin 'ajh17/vimcompletesme'
+Plugin 'junegunn/fzf.vim'
+Plugin 'tpope/vim-rhubarb'
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent off    " required
+" To ignore plugin indent changes, instead use:
+" filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+set rtp+=/usr/local/opt/fzf
+
+" Change leader key to space
+let mapleader = " "
+
 set number
 " display numbers
 
 syntax enable
 " enable pretty colors
 
-let base16colorspace=256  
+let base16colorspace=256
 " Access colors present in 256 colorspace
 
-colorscheme base16-default-dark
+colorscheme gruvbox
+
+" Makes softer gruvbox
+" let g:gruvbox_contrast_dark="soft"
+
+" Error check on launch
+let g:syntastic_always_populate_loc_list=1
+
+" Change error symbol
+let g:syntastic_error_symbol="✗"
+
+" Change warning symbol
+let g:syntastic_warning_symbol="!"
+
+" netrw settings
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+
+" Debug
+let @d='oimport ipdbipdb.set_trace(context=20)jk:w'
+
+" Done debugging
+let @b=':g/ipdb/d'
+
+" Use for fzf searching
+nnoremap <silent> <Leader><Space> :Files<CR>
+
+" Show errors
+nnoremap <silent> <Leader>e :Errors<CR>
+
+" Use for fzf searching
+vnoremap <silent> <Leader>g :Gbrowse<CR>
+
+set background=dark
+
+" set term=screen-256color
+" set term colors
 
 set mouse=a
 " give mouse to all views
@@ -15,8 +98,8 @@ set mouse=a
 set ruler
 " show where I am
 
-set colorcolumn=81
-" vertical line at 81 chars
+set colorcolumn=80
+" vertical line at 80 chars
 
 set autoindent
 " autoindent lines for code
@@ -24,14 +107,13 @@ set autoindent
 " set smartindent
 " let this thing be smart
 
-
-set tabstop=2
+set tabstop=4
 " visual spaces per tab
 
-set shiftwidth=2
+set shiftwidth=4
 " look up what this does
 
-set softtabstop=2
+set softtabstop=4
 " number of spaces in tab when editing
 
 let _curfile = expand("%:t")
@@ -102,10 +184,10 @@ nnoremap <backspace> :noh<CR>:<backspace>
 " set textwidth=80
 " stop at 80 characters and move to next line
 
-let &colorcolumn=join(range(81,999),",")
+let &colorcolumn=join(range(80,999),",")
 " extend end to end of screen
 
-highlight ColorColumn ctermbg=18 guibg=#e0e0e0
+highlight ColorColumn ctermbg=0 guibg=#e0e0e0
 " set colorcolumn color to some gray thing
 
 nnoremap <C-J> <C-W><C-J>
