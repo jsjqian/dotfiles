@@ -24,6 +24,8 @@ Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'ajh17/vimcompletesme'
 Plugin 'junegunn/fzf.vim'
 Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent off " required
