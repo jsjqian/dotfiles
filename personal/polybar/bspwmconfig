@@ -1,0 +1,453 @@
+[colors]
+background = #282828
+foreground = #ebdbb2
+red        = #fb4934
+green      = #b8bb26
+yellow     = #fabd2f
+blue       = #83a598
+purple     = #d3869b
+teal       = #8ec07c
+orange     = #fe8019
+gray       = #a89984
+
+
+[bar/top]
+; Size
+width  = 100%
+height = 30
+
+; Offset
+;offset-x = 50%
+;offset-y = 50%
+
+; Position
+bottom = true
+
+; Radius
+radius = 0
+
+; Align modules fixed to middle
+fixed-center = true
+
+; Colors
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+; Underline
+line-size  = 2
+line-color = ${colors.foreground}
+
+; Border
+border-size  = 0
+border-color = ${colors.background}
+
+; Padding
+padding-left  = 0
+padding-right = 0
+
+; Margin of modules
+module-margin-left  = 0
+module-margin-right = 0
+
+; Font
+font-0 = FiraCode:size=8;2
+font-1 = Font Awesome 5 Free Solid:size=8;2
+
+; Modlues
+modules-left   = bspwm
+modules-center = time date
+modules-right  = wired-network wireless-network battery pulseaudio
+;modules-right  = battery temperature pulseaudio lock logout poweroff
+
+; Cursor actions
+cursor-click  = pointer
+cursor-scroll = ns-resize
+
+
+[module/bspwm]
+type = internal/bspwm
+
+; Mouse click
+enable-click = true
+
+; Mouse scroll
+enable-scroll = false
+
+; Display icons
+fuzzy-match = true
+
+; This will split the workspace name on ':'
+; Default: false
+strip-wsnumbers = true
+
+; Icons
+ws-icon-0       = Home;
+ws-icon-1       = Web;
+ws-icon-2       = Shell;
+ws-icon-3       = Games;
+ws-icon-4       = Media;
+;ws-icon-3       = 4:Code;
+;ws-icon-4       = 5:Games;
+ws-icon-default = 
+
+; Focused label
+label-focused            = %icon% %name%
+label-focused-background = ${colors.green}
+label-focused-foreground = ${colors.foreground}
+label-focused-padding    = 2
+
+; Unfocused labels
+label-occupied = %icon% %name%
+label-occupied-foreground = ${colors.foreground}
+label-occupied-padding    = 2
+
+; Visible labels
+label-visible            = %icon% %name%
+label-visible-foreground = ${colors.foreground}
+label-visible-padding    = 2
+
+; Urgent labels
+label-urgent            = %icon% %name%
+label-urgent-foreground = ${colors.red}
+label-urgent-padding    = 2
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-empty = %icon% %name%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding    = 2
+
+
+[module/time]
+type = internal/date
+
+; Update interval
+interval = 1.0
+
+; Format
+time = %I:%M%P
+
+; Label
+label            =  %time%
+label-foreground = ${colors.foreground}
+label-padding    = 1
+
+
+[module/date]
+type = internal/date
+
+; Update interval
+interval = 1.0
+
+; Format
+date = %A, %d %B
+
+; Label
+label            =  %date%
+label-foreground = ${colors.foreground}
+label-padding    = 1
+
+
+[module/wired-network]
+type = internal/network
+
+; Ethernet interface
+interface = lo
+
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = <label-connected>
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected = <label-disconnected>
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+format-packetloss = <animation-packetloss> <label-connected>
+
+; All labels support the following tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+
+; Default: %ifname% %local_ip%
+label-connected            =  %downspeed:10%
+label-connected-background = ${colors.blue}
+label-connected-padding = 2
+
+; Default: (none)
+label-disconnected            = 
+label-disconnected-foreground = ${colors.gray}
+label-disconnected-padding = 1
+
+; Default: (none)
+;label-packetloss            = %essid%
+;label-packetloss-foreground = ${colors.teal}
+
+; Only applies if <ramp-signal> is used
+; ramp-signal-0 = 😱
+; ramp-signal-1 = 😠
+; ramp-signal-2 = 😒
+; ramp-signal-3 = 😊
+; ramp-signal-4 = 😃
+; ramp-signal-5 = 😈
+
+; Only applies if <animation-packetloss> is used
+animation-packetloss-0            = ⚠
+animation-packetloss-0-foreground = ${colors.yellow}
+animation-packetloss-1            = 📶
+animation-packetloss-1-foreground = ${colors.yellow}
+; Framerate in milliseconds
+animation-packetloss-framerate    = 500
+
+
+[module/wireless-network]
+type = internal/network
+
+; Wifi interface
+interface = wlp3s0
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3.0
+
+; Test connectivity every Nth update
+; A value of 0 disables the feature
+; NOTE: Experimental (needs more testing)
+; Default: 0
+
+;ping-interval = 3
+
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+; Default: false
+accumulate-stats = true
+
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+
+format-connected = <label-connected>
+
+; Available tags:
+;   <label-disconnected> (default)
+format-disconnected = <label-disconnected>
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+format-packetloss = <animation-packetloss> <label-connected>
+
+; All labels support the following tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+
+; Default: %ifname% %local_ip%
+; label-connected            =  %downspeed:3%
+label-connected            = 
+label-connected-background = ${colors.blue}
+label-connected-padding = 1
+
+; Default: (none)
+label-disconnected            = 
+label-disconnected-foreground= ${colors.gray}
+label-disconnected-padding = 1
+
+; Default: (none)
+;label-packetloss            = %essid%
+;label-packetloss-foreground = ${colors.teal}
+
+; Only applies if <ramp-signal> is used
+; ramp-signal-0 = 😱
+; ramp-signal-1 = 😠
+; ramp-signal-2 = 😒
+; ramp-signal-3 = 😊
+; ramp-signal-4 = 😃
+; ramp-signal-5 = 😈
+
+
+; Only applies if <animation-packetloss> is used
+animation-packetloss-0            = ⚠
+animation-packetloss-0-foreground = ${colors.yellow}
+animation-packetloss-1            = 📶
+animation-packetloss-1-foreground = ${colors.yellow}
+; Framerate in milliseconds
+animation-packetloss-framerate    = 500
+
+
+[module/filesystem]
+type = internal/fs
+
+; Mountpoints to display
+mount-0 = /
+
+; Seconds to sleep between updates
+; Default: 30
+interval = 10
+
+; Display fixed precision values
+; Default: false
+fixed-values = true
+
+label-mounted =  %free%
+label-mounted-background = ${colors.green}
+label-mounted-padding    = 1
+
+
+[module/memory]
+type = internal/memory
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+
+label =  %gb_used%/%gb_free%
+label-background = ${colors.purple}
+label-padding    = 1
+
+
+[module/cpu]
+type = internal/cpu
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 0.5
+
+label =  %percentage%%
+label-background = ${colors.teal}
+label-padding    = 1
+
+
+[module/battery]
+type = internal/battery
+
+; Full battery level
+full-at = 96
+
+; Time format
+time-format = %H:%M
+
+; Battery and adapter
+battery = BAT0
+adapter = AC
+
+; Charging label
+label-charging            =  %percentage%%
+label-charging-background = ${colors.yellow}
+label-charging-foreground = ${colors.foreground}
+label-charging-padding    = 2
+
+; Discharging label
+label-discharging            =  %time% %percentage%%
+label-discharging-background = ${colors.orange}
+label-discharging-foreground = ${colors.foreground}
+label-discharging-padding    = 2
+
+; Full label
+label-full            =  %percentage%%
+label-full-background = ${colors.green}
+label-full-foreground = ${colors.foreground}
+label-full-padding    = 2
+
+
+[module/temperature]
+type = internal/temperature
+
+; Label
+label            =  %temperature%
+label-background = ${colors.purple}
+label-foreground = ${colors.foreground}
+label-padding    = 2
+
+; Warning label
+label-warn            =  %temperature%
+label-warn-background = ${colors.red}
+label-warn-foreground = ${colors.foreground}
+label-warn-padding    = 2
+
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Volume label
+label-volume            =  %percentage%%
+label-volume-background = ${colors.teal}
+label-volume-foreground = ${colors.foreground}
+label-volume-padding    = 2
+
+; Muted label
+label-muted            =  Muted
+label-muted-background = ${colors.gray}
+label-muted-foreground = ${colors.foreground}
+label-muted-padding    = 2
+
+
+;[module/lock]
+;type = custom/text
+;
+;; Label
+;content = 
+;content-background = ${colors.yellow}
+;content-foreground = ${colors.foreground}
+;content-padding    = 2
+;
+;; Mouse click
+;click-left = slock
+
+
+;[module/logout]
+;type = custom/text
+;
+;; Label
+;content            = 
+;content-background = ${colors.green}
+;content-foreground = ${colors.foreground}
+;content-padding    = 2
+;
+;; Mouse click
+;click-left = i3-msg exit
+
+
+;[module/poweroff]
+;type = custom/text
+;
+;; Label
+;content            = 
+;content-background = ${colors.red}
+;content-foreground = ${colors.foreground}
+;content-padding    = 2
+;
+;; Mouse click
+;click-left = poweroff
+
+
+[settings]
+screenchange-reload     = true
+;compositing-background = xor
+;compositing-foreground = source
+;compositing-border     = over
+;pseudo-transparency    = false
+
+
+[global/wm]
+margin-top    = 10
+margin-bottom = 10
